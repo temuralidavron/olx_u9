@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<body>
+<a href="{% url 'register' %}">Register</a>
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'logout' %}">Logout</a>
+<div class="container py-4">
+    <h1 class="text-center mb-4">🗂 Product Kanban</h1>
+    <div class="kanban-board">
+        {% for product in products %}
+        <div class="card kanban-card border-0
+            {% if forloop.counter|divisibleby:3 %}bg-success text-white
+            {% elif forloop.counter|divisibleby:2 %}bg-primary text-white
+            {% else %}bg-warning
+            {% endif %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text"><strong>{{ product.price }}</strong> so'm</p>
+                <p class="card-text">Miqdori: {{ product.quantity }} <small>(dona, kg, tonna)</small></p>
+                <h3>Mahsulot egasi  <i>{{ product.user.username }}</i></h3>
+                <p>Categorysi {{ product.category.title }}</p>
+                <button class="btn btn-light btn-sm">Ko‘rish</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
