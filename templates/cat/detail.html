@@ -1,17 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
-<div class="container py-4">
-  <div class="mb-3 text-end">
-    {% for c in cats %}
-    <a href="{% url 'cat-detail' c.pk %}" class="btn btn-outline-primary btn-sm">{{ c.title }}</a>
-    {% endfor %}
-
-  </div>
-
-  <h1 class="text-center mb-4">🗂 Product Kanban</h1>
-
-  <div class="row g-4">
+<h3>{{ cat.title }}</h3>
+<div class="row g-4">
     {% for product in products %}
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm">
@@ -25,7 +15,7 @@
           <p class="card-text">Category: {{ product.category.title }}</p>
           <div class="d-flex justify-content-between">
             <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary btn-sm">Ko‘rish</a>
-            <a href="{% url 'order' product.pk %}" class="btn btn-success btn-sm">Sotib olish</a>
+            <a href="{% url 'order' product.pk  %}" class="btn btn-success btn-sm">Sotib olish</a>
           </div>
         </div>
       </div>
@@ -33,5 +23,6 @@
     {% endfor %}
   </div>
 </div>
+
 
 {% endblock %}

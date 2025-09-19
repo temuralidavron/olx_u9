@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">📦 Product haqida batafsil</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-borderless mb-0">
+            <tr>
+              <th class="text-muted" style="width: 200px;">Mahsulot nomi</th>
+              <td>{{ product.title }}</td>
+            </tr>
+            <tr>
+              <th class="text-muted">Mahsulot turi</th>
+              <td>{{ product.category.title }}</td>
+            </tr>
+            <tr>
+              <th class="text-muted">Narxi</th>
+              <td><span class="fw-bold text-success">{{ product.price }}</span> so'm</td>
+            </tr>
+            <tr>
+              <th class="text-muted">Miqdori</th>
+              <td>{{ product.quantity }}</td>
+            </tr>
+            <tr>
+              <th class="text-muted">Yaratilgan sana</th>
+              <td>{{ product.create_date }}</td>
+            </tr>
+            <tr>
+              <th class="text-muted">Egasi (telefon)</th>
+              <td>{{ product.user.phone }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-footer text-end bg-light">
+          <a href="{% url 'product-list' %}" class="btn btn-outline-secondary btn-sm">⬅ Orqaga</a>
+          <a href="{% url 'order' %}" class="btn btn-success btn-sm">🛒 Sotib olish</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
