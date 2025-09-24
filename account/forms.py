@@ -1,6 +1,6 @@
 from django import forms
 
-from account.models import CustomUser
+from account.models import CustomUser, Profile
 
 
 class RegisterForm(forms.ModelForm):
@@ -8,6 +8,7 @@ class RegisterForm(forms.ModelForm):
         model=CustomUser
         fields=[
             'username',
+            'email',
             'age',
             'phone',
             'password'
@@ -16,6 +17,7 @@ class RegisterForm(forms.ModelForm):
         data=self.cleaned_data
         return CustomUser.objects.create_user(
             username=data.get('username'),
+            email=data.get('email'),
             age=data.get('age'),
             phone=data.get('phone'),
             password=data.get('password')
@@ -26,3 +28,13 @@ class LoginForm(forms.Form):
     password=forms.CharField(max_length=50)
 
 
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=[
+            'bio',
+            'avatar',
+
+        ]

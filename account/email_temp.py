@@ -1,53 +1,4 @@
-from django.shortcuts import redirect
-from django.core.mail import send_mail
-
-# from account.email_temp import data
-from config.settings import EMAIL_HOST_USER as from_user
-from django.core.mail import EmailMultiAlternatives
-
-def check_user(func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect("login")
-        return func(request, *args, **kwargs)
-    return wrapper
-
-
-#SENDING EMAIL
-def send_simple_email():
-
-    send_mail(
-
-        subject="Xush kelibsiz!!!",
-
-        message="Saytimiz haqida malumot oling",
-
-        from_email=from_user,
-
-        recipient_list=["thefoxblogers@gmail.com",from_user],
-
-        fail_silently=False,
-
-    )
-
-
-
-
-
-
-
-def send_html_email(to_user,product_title,product_price,product_qn,total_price):
-    subject = "HTML email sinovi"
-
-    from_email = from_user
-
-    to = [to_user]
-
-    text_content = product_title
-    # product_price=product_price
-    # product_qn=product_qn
-    # total_price=total_price
-    html_content = f"""
+f"""
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -142,11 +93,3 @@ def send_html_email(to_user,product_title,product_price,product_qn,total_price):
 </body>
 </html>
 """
-
-
-    email = EmailMultiAlternatives(subject, text_content,
-                                   from_email, to)
-
-    email.attach_alternative(html_content, "text/html")
-
-    email.send()

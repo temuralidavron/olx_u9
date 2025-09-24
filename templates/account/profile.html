@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>My profile</h4>
+          <a href="{% url 'profile-update' %}" class="btn btn-outline-danger btn-sm">Edit</a>
+
+<h5>Username: {{ profile.user.username }}</h5>
+<h5>Phone: {{ profile.user.phone }}</h5>
+
+{% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" width="200px" height="200px"
+         style="border-radius: 50%; object-fit: cover;">
+{% else %}
+    <img src="/media/default/kim.jpg" width="200px" height="200px"
+         style="border-radius: 50%; object-fit: cover;">
+{% endif %}
+
+<h5>Age:{{ profile.user.age }} yosh</h5>
+<h5>Bio:{{ profile.bio }} </h5>
+
+{% endblock %}

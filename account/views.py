@@ -1,9 +1,12 @@
 # views.py
+from lib2to3.fixes.fix_input import context
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 
-from account.forms import RegisterForm, LoginForm
+from account.forms import RegisterForm, LoginForm, ProfileForm
+from account.models import Profile
 
 
 def register_view(request):
@@ -61,3 +64,25 @@ def my_view(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
+
+
+def get_profile(request):
+    profile=Profile.objects.get(user=request.user)
+    context={
+        'profile':profile
+    }
+    return render(request,'account/profile.html',context)
+
+
+def update_profile(request):
+    profile=Profile.objects.get(user=request.user)
+    if request.method=='POST':
+        form=ProfileForm(request.POST,request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    else:
+        form=ProfileForm(instance=profile)
+
+    return render(request,'account/update.html',{'form':form})

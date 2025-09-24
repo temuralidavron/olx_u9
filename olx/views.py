@@ -1,10 +1,10 @@
-from lib2to3.fixes.fix_input import context
 
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from account.utils import check_user
+from account.models import CustomUser
+from account.utils import check_user, send_simple_email, send_html_email
 from .forms import OrderForm
 from .models import Product, Order, Category
 
@@ -22,13 +22,15 @@ def get_cat(request,pk):
     return render(request,'cat/detail.html',context)
 
 def product_list(request):
+    # send_simple_email()
+    # send_html_email()
     products=Product.objects.all()[:5]
     cats=Category.objects.all()
 
 
     context={
         'products':products,
-        'cats':cats
+        'cats':cats,
 
     }
 
@@ -56,6 +58,16 @@ def create_order(request,pk):
                 return redirect('product-list')
             order.product=pk
             order.user = request.user
+            user=CustomUser.objects.get(username=request.user)
+            send_html_email(
+                to_user=user.email,
+                product_title=pk.title,
+                product_price=pk.price,
+                product_qn=order.quantity,
+                total_price=(pk.price*order.quantity)
+
+
+            )
             order.save()
             return redirect('product-list')
     else:
