@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 from django.urls import path
 
 from account import views
@@ -11,6 +13,10 @@ urlpatterns=[
     # profile
     path('profile/',views.get_profile,name='profile'),
     path('profile/update/',views.update_profile,name='profile-update'),
+
+    # forget ps
+    path('forget/',views.forget_password,name="forget"),
+    path('forget/done/',views.password_dane,name="done"),
 
 
 ]

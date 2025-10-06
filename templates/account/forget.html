@@ -1,15 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
- MY LOGIN
+Forget password
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">send</button>
-
-    <a href="{% url 'register' %}">Register</a>
 </form>
-
-          <a href="{% url 'forget' %}" class="btn btn-outline-danger btn-sm">Forget password</a>
-
 
 {% endblock %}
