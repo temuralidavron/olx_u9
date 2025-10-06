@@ -138,4 +138,3 @@ def password_dane(request):
         form=PasswordDone()
 
     return render(request,'account/done.html',{'form':form})
-~

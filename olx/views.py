@@ -1,6 +1,7 @@
 
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from account.models import CustomUser
@@ -22,9 +23,14 @@ def get_cat(request,pk):
     return render(request,'cat/detail.html',context)
 
 def product_list(request):
-    # send_simple_email()
-    # send_html_email()
-    products=Product.objects.all()[:5]
+    search=request.GET.get('q')
+    if search:
+        products=Product.objects.filter(
+            Q(title__icontains=search) | Q(description__icontains=search)
+        )
+    else:
+
+        products=Product.objects.all()
     cats=Category.objects.all()
 
 
@@ -47,7 +53,7 @@ def product_detail(request,pk):
 
 # sotib olish order create
 # @login_required
-@check_user
+# @check_user
 def create_order(request,pk):
     pk=Product.objects.get(pk=pk)
     if request.method=='POST':
